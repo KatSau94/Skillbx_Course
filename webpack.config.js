@@ -18,13 +18,30 @@ module.exports = {
         template: "./src/index.html"
         })
     ],
-    resolve: {
-        extensions: [".ts", ".tsx", ".js"]
-      },
-      module: {
-        rules: [
-          { test: /\.tsx?$/, loader: "ts-loader" }
+  resolve: {
+    extensions: [".ts", ".tsx", ".js", ".css"]
+  },
+  module: {
+    rules: [
+        { test: /\.tsx?$/, loader: "ts-loader" },
+        {
+            test: /\.less$/,
+            use: [
+            { loader: 'style-loader'},
+            { loader: "css-modules-typescript-loader"}, 
+            { 
+                loader: 'css-loader',
+                options: {
+                    modules: {
+                        mode: 'local',
+                        localIdentName: '[name]__[local]--[hash:base64:5]'
+                    }
+                }
+            },
+            'less-loader'
         ]
-      }
+        }
+    ]
+  }
     
 };
